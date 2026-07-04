@@ -1,0 +1,51 @@
+{
+  "name": "novastack",
+  "version": "0.1.0",
+  "description": "Build production-ready applications in minutes, not hours.",
+  "type": "module",
+  "bin": {
+    "novastack": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "create": "node dist/index.js create"
+  },
+  "keywords": [
+    "cli",
+    "scaffolding",
+    "nextjs",
+    "fullstack",
+    "developer-tools",
+    "boilerplate",
+    "typescript",
+    "prisma",
+    "tailwindcss",
+    "better-auth"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.9.0",
+    "commander": "^13.0.0",
+    "execa": "^9.5.0",
+    "fs-extra": "^11.2.0",
+    "picocolors": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.0.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.0"
+  }
+}
