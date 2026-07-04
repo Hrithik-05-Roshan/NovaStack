@@ -8,6 +8,7 @@ import TrustedTech from "@/components/TrustedTech";
 import Comparison from "@/components/Comparison";
 import GoldenStack from "@/components/GoldenStack";
 import Features from "@/components/Features";
+import Installation from "@/components/Installation";
 import CommandExplorer from "@/components/CommandExplorer";
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import Roadmap from "@/components/Roadmap";
@@ -17,7 +18,7 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   const [copied, setCopied] = useState(false);
-  const commandText = "npx novastack create";
+  const commandText = "npx @novastack/cli create";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(commandText);
@@ -61,17 +62,17 @@ export default function Home() {
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
           <button
-            onClick={() => scrollToSection("features")}
-            className="h-10 px-6 rounded bg-white text-black font-semibold text-xs flex items-center justify-center gap-2 hover:bg-zinc-200 transition-colors cursor-pointer"
+            onClick={() => scrollToSection("installation")}
+            className="h-11 px-6 rounded bg-white text-black font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-zinc-200 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-white/10"
           >
-            Get Started
-            <ArrowRight size={13} />
+            Run your first NovaStack project in under 60 seconds.
+            <ArrowRight size={14} />
           </button>
           <a
-            href="https://github.com/novastack/novastack"
+            href="https://github.com/Hrithik-05-Roshan/NovaStack"
             target="_blank"
             rel="noopener noreferrer"
-            className="h-10 px-6 rounded border border-border-custom bg-surface text-primary-text font-semibold text-xs flex items-center justify-center gap-2 hover:border-zinc-500 transition-colors"
+            className="h-11 px-6 rounded border border-border-custom bg-surface text-primary-text font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 hover:border-zinc-500 transition-colors cursor-pointer"
           >
             <Github size={14} />
             View GitHub
@@ -79,17 +80,33 @@ export default function Home() {
         </div>
 
         {/* Copyable Code Command */}
-        <div className="flex items-center justify-between gap-3 bg-surface border border-border-custom rounded-md px-4 py-2 text-xs font-mono max-w-xs w-full mb-16 select-all">
-          <span className="text-zinc-400">$</span>
-          <span className="text-primary-text text-left flex-1 font-semibold pl-1">
-            {commandText}
-          </span>
+        <div 
+          onClick={handleCopy}
+          className={`flex items-center justify-between gap-3 bg-black/80 border rounded-lg px-5 py-3 text-xs sm:text-sm font-mono max-w-sm sm:max-w-md w-full mb-16 select-all cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(255,255,255,0.03)] relative group overflow-hidden ${
+            copied ? "border-emerald-500/50 shadow-[0_0_20px_rgba(16,185,129,0.08)]" : "border-border-custom hover:border-zinc-700"
+          }`}
+        >
+          {/* Internal gradient line */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.01] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+          
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar flex-1 pr-2">
+            <span className="text-zinc-600 select-none mr-1">$</span>
+            <span className="text-purple-400 font-bold">npx</span>
+            <span className="text-sky-400">@novastack/cli</span>
+            <span className="text-emerald-400">create</span>
+          </div>
+
           <button
-            onClick={handleCopy}
-            className="text-secondary-text hover:text-primary-text transition-colors p-1 cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleCopy();
+            }}
+            className={`transition-all duration-200 p-1.5 rounded bg-zinc-950 border border-border-custom text-secondary-text hover:text-primary-text cursor-pointer shrink-0 ${
+              copied ? "border-emerald-500/40 text-emerald-400" : "hover:border-zinc-700"
+            }`}
             title="Copy Command"
           >
-            {copied ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
+            {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
           </button>
         </div>
 
@@ -130,15 +147,53 @@ export default function Home() {
 
       {/* Features Grid */}
       <section id="features" className="py-20 px-4 max-w-6xl mx-auto w-full border-b border-border-custom/50">
-        <div className="text-left mb-12">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
-            Core Features
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-primary-text">
-            Engineered for DX
-          </h2>
+        <div className="text-left mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
+              Core Features
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-primary-text">
+              Engineered for DX
+            </h2>
+          </div>
+          {/* Feature Badges */}
+          <div className="flex flex-wrap gap-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-zinc-900/60 text-zinc-300 border border-border-custom hover:border-zinc-700 transition-colors duration-300">
+              <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+              Open Source
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-zinc-900/60 text-zinc-300 border border-border-custom hover:border-zinc-700 transition-colors duration-300">
+              <span className="w-1 h-1 rounded-full bg-red-500 animate-pulse" />
+              npm Package
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-zinc-900/60 text-zinc-300 border border-border-custom hover:border-zinc-700 transition-colors duration-300">
+              <span className="w-1 h-1 rounded-full bg-blue-500 animate-pulse" />
+              TypeScript
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-zinc-900/60 text-zinc-300 border border-border-custom hover:border-zinc-700 transition-colors duration-300">
+              <span className="w-1 h-1 rounded-full bg-amber-500 animate-pulse" />
+              MIT License
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-zinc-900/60 text-zinc-300 border border-border-custom hover:border-zinc-700 transition-colors duration-300">
+              <span className="w-1 h-1 rounded-full bg-indigo-500 animate-pulse" />
+              Developer First
+            </span>
+          </div>
         </div>
         <Features />
+      </section>
+
+      {/* Installation Section */}
+      <section id="installation" className="py-20 px-4 max-w-6xl mx-auto w-full border-b border-border-custom/50">
+        <div className="text-left mb-12">
+          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
+            Installation
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-primary-text">
+            Install NovaStack with one command.
+          </h2>
+        </div>
+        <Installation />
       </section>
 
       {/* Commands Explorer */}

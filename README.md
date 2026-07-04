@@ -1,7 +1,7 @@
 # NovaStack
 
-[![npm version](https://img.shields.io/npm/v/novastack.svg?style=flat-square&color=blue)](https://www.npmjs.com/package/novastack)
-[![license](https://img.shields.io/npm/l/novastack.svg?style=flat-square&color=emerald)](./LICENSE)
+[![npm version](https://img.shields.io/npm/v/@novastack/cli.svg?style=flat-square&color=blue)](https://www.npmjs.com/package/@novastack/cli)
+[![license](https://img.shields.io/npm/l/@novastack/cli.svg?style=flat-square&color=emerald)](./LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/Hrithik-05-Roshan/NovaStack?style=flat-square&color=indigo)](https://github.com/Hrithik-05-Roshan/NovaStack/issues)
 [![GitHub stars](https://img.shields.io/github/stars/Hrithik-05-Roshan/NovaStack?style=flat-square&color=yellow)](https://github.com/Hrithik-05-Roshan/NovaStack/stargazers)
 
@@ -45,13 +45,13 @@ For a detailed breakdown of why these components were selected and how they inte
 You can generate a new project instantly using `npx`:
 
 ```bash
-npx novastack create my-new-app
+npx @novastack/cli create my-new-app
 ```
 
 Or install it globally:
 
 ```bash
-npm install -g novastack
+npm install -g @novastack/cli
 novastack create my-new-app
 ```
 

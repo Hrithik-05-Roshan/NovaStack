@@ -24,7 +24,7 @@ const FAQ_ITEMS: FAQItem[] = [
   },
   {
     question: "How do I install dependencies and get started?",
-    answer: "Run `npx novastack create <app-name>` in your terminal. Once completed, step into your project folder, copy `.env.example` to `.env.local`, start the PostgreSQL container with `docker compose up -d`, sync your database using `npx prisma db push`, and run `npm run dev` to start coding."
+    answer: "Run `npx @novastack/cli create <app-name>` in your terminal. Once completed, step into your project folder, copy `.env.example` to `.env.local`, start the PostgreSQL container with `docker compose up -d`, sync your database using `npx prisma db push`, and run `npm run dev` to start coding."
   },
   {
     question: "Can I customize the generated code?",

@@ -36,6 +36,12 @@ export default function Navbar() {
             Features
           </button>
           <button
+            onClick={() => scrollToSection("installation")}
+            className="hover:text-primary-text transition-colors cursor-pointer"
+          >
+            Installation
+          </button>
+          <button
             onClick={() => scrollToSection("commands")}
             className="hover:text-primary-text transition-colors cursor-pointer"
           >
@@ -58,7 +64,7 @@ export default function Navbar() {
         {/* Right Actions */}
         <div className="flex items-center gap-4">
           <a
-            href="https://github.com/novastack/novastack"
+            href="https://github.com/Hrithik-05-Roshan/NovaStack"
             target="_blank"
             rel="noopener noreferrer"
             className="text-secondary-text hover:text-primary-text transition-colors flex items-center gap-1.5 text-xs font-medium"
@@ -67,8 +73,8 @@ export default function Navbar() {
             <span className="hidden sm:inline">GitHub</span>
           </a>
           <button
-            onClick={() => scrollToSection("hero")}
-            className="bg-white text-black hover:bg-zinc-200 transition-colors px-3 py-1.5 rounded text-xs font-semibold"
+            onClick={() => scrollToSection("installation")}
+            className="bg-white text-black hover:bg-zinc-200 transition-colors px-3 py-1.5 rounded text-xs font-semibold cursor-pointer"
           >
             Get Started
           </button>

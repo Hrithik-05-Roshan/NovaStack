@@ -1,7 +1,7 @@
 {
-  "name": "novastack",
+  "name": "@novastack/cli",
   "version": "0.1.0",
-  "description": "Build production-ready applications in minutes, not hours.",
+  "description": "Opinionated CLI for scaffolding production-ready Next.js applications",
   "type": "module",
   "bin": {
     "novastack": "./dist/index.js"

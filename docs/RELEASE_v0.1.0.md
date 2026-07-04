@@ -36,7 +36,7 @@ Every project generated with NovaStack comes pre-configured with:
 ### Getting Started
 Launch a new application immediately using `npx`:
 ```bash
-npx novastack create my-awesome-app
+npx @novastack/cli create my-awesome-app
 ```
 ```
 
@@ -84,7 +84,7 @@ Once pushed, GitHub Actions will trigger the `ci.yml` verify checks and start th
 If you are publishing manually to npm (or configuring the `NPM_TOKEN` secret for GitHub Actions):
 
 - [ ] **Account Verification:** Ensure you are logged into your npm account (`npm whoami`).
-- [ ] **Package Name Availability:** Verify that the `novastack` name is owned by your organization or user.
+- [ ] **Package Name Availability:** Verify that the `@novastack/cli` name is owned by your organization or user.
 - [ ] **Registry Check:** Confirm the default npm registry is active: `https://registry.npmjs.org`.
-- [ ] **Publish Command:** Run `npm publish` (or `npm publish --access public` if publishing a scoped package).
-- [ ] **Verify Publication:** Run `npm view novastack version` to confirm the registry updated to `0.1.0`.
+- [ ] **Publish Command:** Run `npm publish --access public` (since it is a scoped package).
+- [ ] **Verify Publication:** Run `npm view @novastack/cli version` to confirm the registry updated to `0.1.0`.

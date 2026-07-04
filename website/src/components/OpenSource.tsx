@@ -49,7 +49,7 @@ export default function OpenSource() {
 
         <div className="mt-8 pt-6 border-t border-border-custom/40">
           <a
-            href="https://github.com/novastack/novastack"
+            href="https://github.com/Hrithik-05-Roshan/NovaStack"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex h-10 items-center justify-center rounded border border-white/20 bg-surface px-6 text-xs font-semibold hover:border-white transition-colors"
@@ -65,7 +65,7 @@ export default function OpenSource() {
           <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block mb-1">
             CLI Statistics
           </span>
-          <div className="text-lg font-bold text-primary-text">novastack@0.1.0</div>
+          <div className="text-lg font-bold text-primary-text">@novastack/cli@0.1.0</div>
         </div>
 
         <div className="space-y-4">

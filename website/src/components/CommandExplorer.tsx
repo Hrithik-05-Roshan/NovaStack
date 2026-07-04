@@ -15,7 +15,7 @@ const COMMANDS: CommandDetail[] = [
   {
     name: "novastack create",
     description: "Initialize and scaffold a new full-stack Next.js project with the pre-configured golden stack.",
-    usage: "npx novastack create [project-name] [options]",
+    usage: "npx @novastack/cli create [project-name] [options]",
     output: `Creating project: my-app
 ✔ Rendering templates
 ✔ Writing files
@@ -31,7 +31,7 @@ Project is ready! Run "cd my-app && npm run dev" to start.`,
   {
     name: "novastack doctor",
     description: "Run diagnostic checks on your project to detect missing files, environment variable configuration errors, database connection status, and linting problems.",
-    usage: "npx novastack doctor",
+    usage: "npx @novastack/cli doctor",
     output: `🔍 Analyzing project health...
 ✔ Environment variables: OK
 ✔ Database connection: OK
@@ -45,7 +45,7 @@ Health checks complete.`,
   {
     name: "novastack generate",
     description: "Create standard boilerplate models, components, API endpoints, or full pages directly mapped to your active architecture.",
-    usage: "npx novastack generate <type> <name>",
+    usage: "npx @novastack/cli generate <type> <name>",
     output: `Generating API route for "users"...
 ✔ Created src/app/api/users/route.ts
 ✔ Added Prisma schema modifications
@@ -60,7 +60,7 @@ Health checks complete.`,
   {
     name: "novastack add",
     description: "Integrate optional features, third-party libraries, or plugins into your project after creation.",
-    usage: "npx novastack add <module>",
+    usage: "npx @novastack/cli add <module>",
     output: `Installing additional module "resend"...
 ✔ Configured Resend email client in src/lib/email.ts
 ✔ Added API endpoint at src/app/api/send/route.ts
@@ -74,7 +74,7 @@ Health checks complete.`,
   {
     name: "novastack update",
     description: "Detect updates for Next.js, Prisma, Tailwind, and Better Auth. Performs safe dependency upgrades.",
-    usage: "npx novastack update",
+    usage: "npx @novastack/cli update",
     output: `Checking for updates...
 ✔ Prisma: Up to date (v6.2.0)
 ✔ Next.js: Up to date (v15.1.0)

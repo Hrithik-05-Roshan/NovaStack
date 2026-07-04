@@ -24,7 +24,7 @@ You have two primary options to run NovaStack:
 This ensures you are always running the latest version of the CLI without polluting your global node modules:
 
 ```bash
-npx novastack create my-app
+npx @novastack/cli create my-app
 ```
 
 ### 2. Install globally via npm
@@ -33,7 +33,7 @@ If you prefer to run the CLI frequently offline or without using network queries
 
 ```bash
 # Global install
-npm install -g novastack
+npm install -g @novastack/cli
 
 # Scaffolding command
 novastack create my-app

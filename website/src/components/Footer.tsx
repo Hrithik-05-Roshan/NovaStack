@@ -24,7 +24,7 @@ export default function Footer() {
 
         <div className="flex flex-wrap gap-x-8 gap-y-4 text-[11px] text-zinc-400 font-medium">
           <a
-            href="https://github.com/novastack/novastack"
+            href="https://github.com/Hrithik-05-Roshan/NovaStack"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-primary-text transition-colors"
@@ -44,7 +44,7 @@ export default function Footer() {
             FAQ
           </a>
           <a
-            href="https://github.com/novastack/novastack/blob/main/LICENSE"
+            href="https://github.com/Hrithik-05-Roshan/NovaStack/blob/main/LICENSE"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-primary-text transition-colors"
@@ -52,7 +52,7 @@ export default function Footer() {
             MIT License
           </a>
           <a
-            href="https://github.com/sponsors/novastack"
+            href="https://github.com/sponsors/Hrithik-05-Roshan"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-primary-text transition-colors"
