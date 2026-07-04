@@ -1,0 +1,69 @@
+name: 🐛 Bug Report
+description: Report a bug or issue in NovaStack CLI or generated projects
+title: "bug: <summary>"
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the sections below to help us triage and resolve the issue quickly.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of what the bug is.
+      placeholder: Describe the problem...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: NovaStack Version
+      description: What version of NovaStack are you running? (Run `npx novastack -v` to check)
+      placeholder: e.g., 0.1.0
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      description: What OS are you running the CLI on?
+      options:
+        - Windows
+        - macOS
+        - Linux (Ubuntu/Debian)
+        - Linux (RedHat/Fedora)
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: package_manager
+    attributes:
+      label: Package Manager
+      description: What package manager was used/detected during creation?
+      options:
+        - npm
+        - pnpm
+        - yarn
+        - bun
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Detailed steps explaining how we can reproduce the behavior.
+      placeholder: |
+        1. Run 'npx novastack create my-app'
+        2. Select default options...
+        3. Try to run 'npm run dev' and see error...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Terminal Logs / Callstack
+      description: Paste any error messages, terminal callstacks, or compiler logs here.
+      render: bash
+    validations:
+      required: false

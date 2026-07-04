@@ -6,7 +6,7 @@
  */
 import type { ProjectConfig, TemplateFile } from '../types/index.js';
 import { generatePackageJson, generateTsConfig, generateNextConfig, generateTailwindCss, generatePostcssConfig, generateComponentsJson } from './config.js';
-import { generateLayout, generatePage, generateDashboardPage, generateAuthRoute, generateHealthRoute, generateLoadingPage, generateGlobalError } from './app.js';
+import { generateLayout, generatePage, generateDashboardPage, generateAuthRoute, generateHealthRoute, generateLoadingPage, generateGlobalError, generateNotFoundPage, generateIcon } from './app.js';
 import { generatePrismaSchema, generatePrismaSeed } from './prisma.js';
 import { generateAuthServer, generateAuthClient } from './auth.js';
 import { generateDbClient, generateCnUtils } from './lib.js';
@@ -32,8 +32,8 @@ export function generateAllFiles(config: ProjectConfig): TemplateFile[] {
     { path: '.prettierrc', content: generatePrettierConfig() },
 
     // ── Environment ─────────────────────────────────
-    { path: '.env.example', content: generateEnvExample() },
-    { path: '.env.local', content: generateEnvLocal() },
+    { path: '.env.example', content: generateEnvExample(config) },
+    { path: '.env.local', content: generateEnvLocal(config) },
     { path: '.gitignore', content: generateGitignore() },
 
     // ── Docker ──────────────────────────────────────
@@ -48,7 +48,9 @@ export function generateAllFiles(config: ProjectConfig): TemplateFile[] {
     { path: 'src/app/layout.tsx', content: generateLayout(config) },
     { path: 'src/app/page.tsx', content: generatePage(config) },
     { path: 'src/app/loading.tsx', content: generateLoadingPage() },
+    { path: 'src/app/not-found.tsx', content: generateNotFoundPage() },
     { path: 'src/app/error.tsx', content: generateGlobalError() },
+    { path: 'src/app/icon.tsx', content: generateIcon() },
     { path: 'src/app/globals.css', content: generateTailwindCss() },
     { path: 'src/app/(dashboard)/page.tsx', content: generateDashboardPage() },
     { path: 'src/app/api/auth/[...all]/route.ts', content: generateAuthRoute() },

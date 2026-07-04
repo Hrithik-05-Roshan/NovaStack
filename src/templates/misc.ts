@@ -55,11 +55,12 @@ prisma/migrations/
 `;
 }
 
-export function generateEnvExample(): string {
+export function generateEnvExample(config: ProjectConfig): string {
+  const dbName = config.name.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
   return `# ── Database ─────────────────────────────────────────────────
-# PostgreSQL connection string
+# PostgreSQL connection string for Prisma.
 # Format: postgresql://USER:PASSWORD@HOST:PORT/DATABASE
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/my_novastack_app"
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/${dbName}"
 
 # ── Better Auth ──────────────────────────────────────────────
 # Secret key for signing tokens (generate with: openssl rand -base64 32)
@@ -82,13 +83,14 @@ BETTER_AUTH_URL="http://localhost:3000"
 `;
 }
 
-export function generateEnvLocal(): string {
+export function generateEnvLocal(config: ProjectConfig): string {
+  const dbName = config.name.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
   return `# Local Environment Variables
 # This file is gitignored — safe for secrets.
 # Copy from .env.example and fill in your values.
 
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/my_novastack_app"
-BETTER_AUTH_SECRET="dev-secret-change-in-production"
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/${dbName}"
+BETTER_AUTH_SECRET="dev-secret-change-in-production-use-openssl-rand"
 BETTER_AUTH_URL="http://localhost:3000"
 `;
 }

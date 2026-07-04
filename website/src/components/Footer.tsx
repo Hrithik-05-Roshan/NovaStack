@@ -40,6 +40,9 @@ export default function Footer() {
           <a href="#roadmap" className="hover:text-primary-text transition-colors">
             Roadmap
           </a>
+          <a href="#faq" className="hover:text-primary-text transition-colors">
+            FAQ
+          </a>
           <a
             href="https://github.com/novastack/novastack/blob/main/LICENSE"
             target="_blank"

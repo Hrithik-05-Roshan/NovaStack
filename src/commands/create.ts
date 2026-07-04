@@ -24,7 +24,9 @@ export const createCommand = new Command('create')
   .option('--no-install', 'Skip dependency installation')
   .action(async (nameArg: string | undefined, options: { git: boolean; install: boolean }) => {
     // ── Banner ────────────────────────────────────────
+    logger.newline();
     console.log(fmt.cyan(BANNER));
+    logger.newline();
 
     // ── Prompts ───────────────────────────────────────
     const config = await runCreatePrompts(nameArg);
@@ -40,13 +42,13 @@ export const createCommand = new Command('create')
 
     // ── Scaffold ──────────────────────────────────────
     const scaffoldSpinner = p.spinner();
-    scaffoldSpinner.start('Scaffolding project...');
+    scaffoldSpinner.start('Scaffolding project files...');
 
     const result = await scaffold(config);
 
     if (!result.success) {
       scaffoldSpinner.stop('Scaffolding failed', 1);
-      logger.error(result.error || 'Unknown error during scaffolding.');
+      p.outro(fmt.red(`Scaffolding failed: ${result.error || 'Unknown error during scaffolding.'}`));
       process.exit(1);
     }
 
@@ -62,10 +64,10 @@ export const createCommand = new Command('create')
         installSpinner.stop('Dependencies installed', 0);
       } catch (error) {
         installSpinner.stop('Dependency installation failed', 1);
-        logger.warn(
+        p.log.warn(
           error instanceof Error ? error.message : 'Failed to install dependencies.'
         );
-        logger.dim(`You can install them manually: cd ${config.name} && ${config.packageManager} install`);
+        p.log.info(`You can install them manually: cd ${config.name} && ${config.packageManager} install`);
       }
     }
 
@@ -79,7 +81,7 @@ export const createCommand = new Command('create')
         gitSpinner.stop('Git repository initialized', 0);
       } catch {
         gitSpinner.stop('Git initialization skipped', 1);
-        logger.dim('Git is not installed or not configured. Skipping.');
+        p.log.warn('Git is not installed or not configured. Skipping.');
       }
     }
 
@@ -88,23 +90,22 @@ export const createCommand = new Command('create')
     p.outro(fmt.green('Project created successfully! 🚀'));
 
     logger.newline();
-    logger.raw(fmt.bold('  Next steps:'));
-    logger.newline();
-    logger.raw(`    cd ${fmt.cyan(config.name)}`);
-
+    console.log(`  ${fmt.bold('Next steps:')}`);
+    let stepNum = 1;
+    console.log(`    ${fmt.cyan(stepNum++)}.  cd ${fmt.bold(config.name)}`);
     if (!config.installDeps) {
-      logger.raw(`    ${config.packageManager} install`);
+      console.log(`    ${fmt.cyan(stepNum++)}.  ${config.packageManager} install`);
     }
-
-    logger.raw(`    cp .env.example .env.local    ${fmt.dim('# Configure environment')}`);
-    logger.raw(`    docker compose up -d          ${fmt.dim('# Start PostgreSQL')}`);
-    logger.raw(`    npx prisma db push            ${fmt.dim('# Sync database schema')}`);
-    logger.raw(`    ${config.packageManager} run dev                ${fmt.dim('# Start development')}`);
+    console.log(`    ${fmt.cyan(stepNum++)}.  cp .env.example .env.local   ${fmt.dim('# Configure environment variables')}`);
+    console.log(`    ${fmt.cyan(stepNum++)}.  docker compose up -d         ${fmt.dim('# Start PostgreSQL database container')}`);
+    console.log(`    ${fmt.cyan(stepNum++)}.  npx prisma db push           ${fmt.dim('# Sync database schema')}`);
+    console.log(`    ${fmt.cyan(stepNum++)}.  ${config.packageManager} run dev               ${fmt.dim('# Start local development server')}`);
     logger.newline();
 
     // Stack summary
-    logger.raw(fmt.dim('  Stack:'));
-    logger.raw(fmt.dim(`    ${STACK.framework} · ${STACK.language} · ${STACK.styling}`));
-    logger.raw(fmt.dim(`    ${STACK.orm} · ${STACK.database} · ${STACK.auth} · ${STACK.ui}`));
+    console.log(`  ${fmt.dim('Stack summary:')}`);
+    console.log(`    ${fmt.dim(
+      `${STACK.framework} · ${STACK.language} · ${STACK.styling} · ${STACK.orm} · ${STACK.database} · ${STACK.auth} · ${STACK.ui}`
+    )}`);
     logger.newline();
   });

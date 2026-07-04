@@ -1,0 +1,41 @@
+name: 💡 Feature Request
+description: Propose a new feature, enhancement, or template update to NovaStack
+title: "feat: <summary>"
+labels: ["enhancement", "discussion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please note that NovaStack is built on the philosophy of **zero decision fatigue** and **high polish**.
+        We carefully evaluate new additions to the core stack to avoid adding clutter or slowing down bootstrapping.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Is your feature request related to a problem?
+      description: A clear and concise description of the problem this feature solves.
+      placeholder: e.g., I'm frustrated when I have to configure X manually on every new app because...
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: A clear and concise description of what you want to happen.
+      placeholder: Describe the desired feature/enhancement...
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Describe alternatives you've considered
+      description: Any alternative solutions or workarounds you've thought about.
+      placeholder: e.g. Manual package installation...
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Add any other context, screenshots, or code proposals here.
+    validations:
+      required: false

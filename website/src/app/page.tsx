@@ -12,6 +12,7 @@ import CommandExplorer from "@/components/CommandExplorer";
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import Roadmap from "@/components/Roadmap";
 import OpenSource from "@/components/OpenSource";
+import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -177,6 +178,19 @@ export default function Home() {
           </h2>
         </div>
         <Roadmap />
+      </section>
+
+      {/* FAQ */}
+      <section id="faq" className="py-20 px-4 max-w-6xl mx-auto w-full border-b border-border-custom/50">
+        <div className="text-left mb-12">
+          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
+            Frequently Asked Questions
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-primary-text">
+            Questions & Answers
+          </h2>
+        </div>
+        <FAQ />
       </section>
 
       {/* Open Source / Community */}

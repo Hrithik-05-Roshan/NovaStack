@@ -27,16 +27,6 @@ export const STACK = {
   containerization: 'Docker',
 } as const;
 
-/**
- * ASCII art banner displayed at the start of the CLI.
- */
-export const BANNER = [
-  '',
-  '  ╔══════════════════════════════════════════╗',
-  '  ║                                          ║',
-  '  ║   ◆  N O V A S T A C K                  ║',
-  '  ║      Build fast. Ship faster.            ║',
-  '  ║                                          ║',
-  '  ╚══════════════════════════════════════════╝',
-  '',
-].join('\n');
+export const BANNER = `  ▲  N O V A S T A C K  (v0.1.0)
+  Build fast. Ship faster.`;
+

@@ -6,6 +6,7 @@
  */
 import * as p from '@clack/prompts';
 import path from 'node:path';
+import fs from 'fs-extra';
 import { DEFAULT_PROJECT_NAME, STACK } from '../utils/constants.js';
 import { fmt } from '../utils/logger.js';
 import type { PackageManager, ProjectConfig } from '../types/index.js';
@@ -23,7 +24,7 @@ function detectPackageManager(): PackageManager {
 }
 
 /**
- * Validate a project name for npm compatibility.
+ * Validate a project name for npm compatibility and directory availability.
  */
 function validateProjectName(name: string): string | undefined {
   if (!name || name.trim().length === 0) {
@@ -38,6 +39,20 @@ function validateProjectName(name: string): string | undefined {
 
   if (name.length > 214) {
     return 'Project name must be under 214 characters.';
+  }
+
+  // Check if directory exists and is not empty
+  const targetDir = path.resolve(process.cwd(), name);
+  if (fs.existsSync(targetDir)) {
+    try {
+      const contents = fs.readdirSync(targetDir);
+      if (contents.length > 0) {
+        return `Directory "${name}" already exists and is not empty.`;
+      }
+    } catch {
+      // Permission or other file system issues
+      return `Directory "${name}" is inaccessible.`;
+    }
   }
 
   return undefined; // valid
@@ -79,18 +94,18 @@ export async function runCreatePrompts(projectNameArg?: string): Promise<Project
   }
 
   // ── Display the Golden Stack ──────────────────────────
-  p.log.step('Your stack (zero-choice, maximum quality):');
-  console.log('');
-  console.log(`  ${fmt.dim('Framework')}    ${fmt.bold(STACK.framework)}`);
-  console.log(`  ${fmt.dim('Language')}     ${fmt.bold(STACK.language)}`);
-  console.log(`  ${fmt.dim('Styling')}      ${fmt.bold(STACK.styling)}`);
-  console.log(`  ${fmt.dim('Database')}     ${fmt.bold(STACK.database)}`);
-  console.log(`  ${fmt.dim('ORM')}          ${fmt.bold(STACK.orm)}`);
-  console.log(`  ${fmt.dim('Auth')}         ${fmt.bold(STACK.auth)}`);
-  console.log(`  ${fmt.dim('UI')}           ${fmt.bold(STACK.ui)}`);
-  console.log(`  ${fmt.dim('Linting')}      ${fmt.bold(STACK.linting)}`);
-  console.log(`  ${fmt.dim('Container')}    ${fmt.bold(STACK.containerization)}`);
-  console.log('');
+  p.log.step('Opinionated, high-performance tech stack:');
+  console.log(fmt.dim('  │'));
+  console.log(`  ${fmt.dim('│')}  ${fmt.dim('Framework:')}   ${fmt.cyan(STACK.framework)}`);
+  console.log(`  ${fmt.dim('│')}  ${fmt.dim('Language:')}    ${fmt.cyan(STACK.language)}`);
+  console.log(`  ${fmt.dim('│')}  ${fmt.dim('Styling:')}     ${fmt.cyan(STACK.styling)}`);
+  console.log(`  ${fmt.dim('│')}  ${fmt.dim('Database:')}    ${fmt.cyan(STACK.database)}`);
+  console.log(`  ${fmt.dim('│')}  ${fmt.dim('ORM:')}         ${fmt.cyan(STACK.orm)}`);
+  console.log(`  ${fmt.dim('│')}  ${fmt.dim('Auth:')}        ${fmt.cyan(STACK.auth)}`);
+  console.log(`  ${fmt.dim('│')}  ${fmt.dim('UI:')}          ${fmt.cyan(STACK.ui)}`);
+  console.log(`  ${fmt.dim('│')}  ${fmt.dim('Linting:')}     ${fmt.cyan(STACK.linting)}`);
+  console.log(`  ${fmt.dim('│')}  ${fmt.dim('Container:')}   ${fmt.cyan(STACK.containerization)}`);
+  console.log(fmt.dim('  │'));
 
   // ── Confirm ───────────────────────────────────────────
   const confirmed = await p.confirm({
