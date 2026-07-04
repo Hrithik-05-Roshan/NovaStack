@@ -2,7 +2,7 @@
  * NovaStack CLI — Entry Point
  *
  * Registers all commands and parses CLI arguments.
- * This is the file that runs when a user types `novastack` or `npx novastack`.
+ * This is the file that runs when a user types `novastack` or `npx @novastack/cli`.
  */
 import { Command } from 'commander';
 import { createCommand } from './commands/create.js';

@@ -45,7 +45,7 @@ It unifies the fragmented setup experience — authentication, databases, lintin
 
 | Channel       | Details                                  |
 |---------------|------------------------------------------|
-| **npm**       | `npx novastack create` / `npm i -g novastack` |
+| **npm**       | `npx @novastack/cli create` / `npm i -g @novastack/cli` |
 | **GitHub**    | Open-source repository, MIT License      |
 | **Docs Site** | Dedicated documentation website          |
 
@@ -152,7 +152,7 @@ These principles guide every design and implementation decision:
 
 ### P1 — Zero-to-Production in Minutes
 
-> The critical path from `npx novastack create` to a deployable application must take **under 2 minutes** on a standard machine.
+> The critical path from `npx @novastack/cli create` to a deployable application must take **under 2 minutes** on a standard machine.
 
 ### P2 — Opinionated Defaults, Escape Hatches Everywhere
 
@@ -220,13 +220,13 @@ These principles guide every design and implementation decision:
 
 ```bash
 # Interactive mode (recommended)
-npx novastack create
+npx @novastack/cli create
 
 # With project name
-npx novastack create my-app
+npx @novastack/cli create my-app
 
 # Non-interactive mode (CI/CD friendly)
-npx novastack create my-app --template fullstack --db postgres --auth nextauth --yes
+npx @novastack/cli create my-app --template fullstack --db postgres --auth nextauth --yes
 ```
 
 #### 6.1.2 Zero-Choice Philosophy
@@ -354,7 +354,7 @@ Print usage information for all available commands and global options.
 
 ```mermaid
 flowchart TD
-    A["Developer runs: npx novastack create"] --> B{First-time user?}
+    A["Developer runs: npx @novastack/cli create"] --> B{First-time user?}
     B -->|Yes| C["Display welcome banner + ASCII art"]
     B -->|No| D["Skip welcome"]
     C --> D
@@ -607,7 +607,7 @@ gantt
 
 ### 13.3 North Star Metric
 
-> **Time from `npx novastack create` to `npm run dev` showing a working application.**
+> **Time from `npx @novastack/cli create` to `npm run dev` showing a working application.**
 >
 > Target: **under 60 seconds** (on a reasonable connection).
 
