@@ -30,7 +30,7 @@ const MILESTONES: Milestone[] = [
   },
   {
     version: "v0.4",
-    name: "NovaStack module Registry",
+    name: "NovaStack Module Registry",
     desc: "Shared community module installation platform to easily add Stripe, Redis, Resend, and standard helper libraries.",
     status: "planned",
   },
@@ -49,19 +49,33 @@ export default function Roadmap() {
         {/* Horizontal connector line for desktop */}
         <div className="hidden md:block absolute top-[18px] left-[5%] right-[5%] h-0.5 bg-zinc-800 z-0" />
 
-        {MILESTONES.map((stone, idx) => {
+        {MILESTONES.map((stone) => {
           const isComplete = stone.status === "complete";
           const isInProgress = stone.status === "in-progress";
 
           return (
-            <div key={stone.version} className="flex flex-col items-start text-left relative z-10">
+            <div
+              key={stone.version}
+              className="flex flex-col items-start text-left relative z-10"
+            >
               {/* Timeline dot */}
               <div className="flex items-center gap-3 md:flex-col md:items-start md:gap-0 mb-3">
-                <div className="shrink-0 flex items-center justify-center w-9 h-9 rounded-full bg-background border border-border-custom relative z-10 md:mb-4">
+                <div
+                  className={`shrink-0 flex items-center justify-center w-9 h-9 rounded-full bg-background border relative z-10 md:mb-4 transition-colors ${
+                    isComplete
+                      ? "border-emerald-700/50"
+                      : isInProgress
+                      ? "border-blue-700/50"
+                      : "border-border-custom"
+                  }`}
+                >
                   {isComplete ? (
-                    <CheckCircle2 size={16} className="text-white" />
+                    <CheckCircle2
+                      size={16}
+                      className="text-emerald-400"
+                    />
                   ) : isInProgress ? (
-                    <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-blue-400 animate-pulse" />
                   ) : (
                     <Circle size={14} className="text-zinc-600" />
                   )}
@@ -90,11 +104,11 @@ export default function Roadmap() {
 
                 {/* Status Badge */}
                 <span
-                  className={`inline-block text-[9px] font-mono mt-3 px-2 py-0.5 rounded ${
+                  className={`inline-block text-[9px] font-mono mt-3 px-2.5 py-0.5 rounded-full ${
                     isComplete
-                      ? "bg-zinc-800/80 text-zinc-400 border border-zinc-700/50"
+                      ? "bg-emerald-950/60 text-emerald-400 border border-emerald-900/50"
                       : isInProgress
-                      ? "bg-white/10 text-white border border-white/20"
+                      ? "bg-blue-950/60 text-blue-400 border border-blue-900/50"
                       : "bg-black/30 text-zinc-600 border border-border-custom/50"
                   }`}
                 >

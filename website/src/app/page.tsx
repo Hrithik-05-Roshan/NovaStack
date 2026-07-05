@@ -1,29 +1,80 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Copy, Check, Github, Terminal, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import InteractiveTerminal from "@/components/InteractiveTerminal";
-import TrustedTech from "@/components/TrustedTech";
-import Comparison from "@/components/Comparison";
-import GoldenStack from "@/components/GoldenStack";
 import Features from "@/components/Features";
 import Installation from "@/components/Installation";
-import CommandExplorer from "@/components/CommandExplorer";
-import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import Roadmap from "@/components/Roadmap";
-import OpenSource from "@/components/OpenSource";
-import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
+
+/* ───────────────────────────────────────
+   Intersection Observer for fade-in sections
+   ─────────────────────────────────────── */
+function useFadeIn() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReduced) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, isVisible };
+}
+
+function FadeInSection({
+  children,
+  className = "",
+  id,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  id?: string;
+}) {
+  const { ref, isVisible } = useFadeIn();
+  return (
+    <div
+      ref={ref}
+      id={id}
+      className={`transition-all duration-700 ease-out ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+      } ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function Home() {
   const [copied, setCopied] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   const commandText = "npx @novastack/cli create";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(commandText);
     setCopied(true);
+    setShowToast(true);
     setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => setShowToast(false), 2500);
   };
 
   const scrollToSection = (id: string) => {
@@ -37,58 +88,75 @@ export default function Home() {
     <div className="relative min-h-screen overflow-x-hidden flex flex-col bg-background text-primary-text">
       {/* Background glow lines */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/[0.03] via-transparent to-transparent pointer-events-none z-0" />
-      
+
       {/* Navigation */}
       <Navbar />
 
       {/* Hero Section */}
-      <section id="hero" className="relative pt-32 pb-20 px-4 max-w-6xl mx-auto w-full text-center flex flex-col items-center z-10">
+      <section
+        id="hero"
+        className="relative pt-24 sm:pt-28 pb-16 px-4 max-w-5xl mx-auto w-full text-center flex flex-col items-center z-10"
+        aria-label="Hero section"
+      >
         {/* Release tag */}
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border-custom bg-black/40 text-[10px] font-mono text-zinc-400 mb-8 select-none">
-          <Terminal size={11} className="text-zinc-500" />
-          <span>NovaStack CLI MVP is officially live</span>
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border-custom bg-black/40 text-[11px] font-mono text-zinc-400 mb-10 select-none hover:border-zinc-600 transition-colors">
+          <Terminal size={12} className="text-zinc-500" />
+          <span>NovaStack CLI v0.1.0 — Now Available</span>
         </div>
 
         {/* Headline */}
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary-text max-w-3xl leading-[1.1] mb-6 font-sans">
-          Build production-ready applications before your coffee gets cold.
+        <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold tracking-tight text-primary-text max-w-3xl leading-[1.08] mb-6 font-sans">
+          Build production-ready apps{" "}
+          <span className="gradient-text">before your coffee gets cold.</span>
         </h1>
 
         {/* Supporting Text */}
-        <p className="text-sm sm:text-base lg:text-lg text-secondary-text max-w-xl leading-relaxed mb-10">
-          Opinionated open-source CLI that scaffolds modern full-stack Next.js applications with optimal configuration and production defaults.
+        <p className="text-sm sm:text-base lg:text-lg text-secondary-text max-w-2xl leading-relaxed mb-12">
+          Generate production-ready Next.js applications with Prisma, Better
+          Auth, PostgreSQL, Docker, Tailwind CSS, and modern best practices —
+          using a single command.
         </p>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row gap-3 mb-10">
           <button
             onClick={() => scrollToSection("installation")}
-            className="h-11 px-6 rounded bg-white text-black font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-zinc-200 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-white/10"
+            className="h-11 px-7 rounded-lg bg-white text-black font-semibold text-sm flex items-center justify-center gap-2.5 hover:bg-zinc-200 transition-all duration-200 cursor-pointer shadow-lg hover:shadow-white/10 focus-visible:outline-white"
+            aria-label="Get started with NovaStack"
           >
-            Run your first NovaStack project in under 60 seconds.
-            <ArrowRight size={14} />
+            Scaffold your first project
+            <ArrowRight size={15} />
           </button>
           <a
             href="https://github.com/Hrithik-05-Roshan/NovaStack"
             target="_blank"
             rel="noopener noreferrer"
-            className="h-11 px-6 rounded border border-border-custom bg-surface text-primary-text font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 hover:border-zinc-500 transition-colors cursor-pointer"
+            className="h-11 px-7 rounded-lg border border-border-custom bg-surface text-primary-text font-semibold text-sm flex items-center justify-center gap-2.5 hover:border-zinc-500 hover:bg-zinc-900 transition-all duration-200 cursor-pointer"
+            aria-label="View NovaStack on GitHub"
           >
-            <Github size={14} />
-            View GitHub
+            <Github size={15} />
+            View on GitHub
           </a>
         </div>
 
         {/* Copyable Code Command */}
-        <div 
+        <div
           onClick={handleCopy}
-          className={`flex items-center justify-between gap-3 bg-black/80 border rounded-lg px-5 py-3 text-xs sm:text-sm font-mono max-w-sm sm:max-w-md w-full mb-16 select-all cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(255,255,255,0.03)] relative group overflow-hidden ${
-            copied ? "border-emerald-500/50 shadow-[0_0_20px_rgba(16,185,129,0.08)]" : "border-border-custom hover:border-zinc-700"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") handleCopy();
+          }}
+          tabIndex={0}
+          role="button"
+          aria-label={`Copy command: ${commandText}`}
+          className={`flex items-center justify-between gap-3 bg-black/80 border rounded-lg px-5 py-3.5 text-xs sm:text-sm font-mono max-w-sm sm:max-w-md w-full mb-16 select-all cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(255,255,255,0.03)] relative group overflow-hidden ${
+            copied
+              ? "border-emerald-500/50 shadow-[0_0_20px_rgba(16,185,129,0.08)]"
+              : "border-border-custom hover:border-zinc-700"
           }`}
         >
-          {/* Internal gradient line */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.01] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-          
+          {/* Shimmer effect on hover */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar flex-1 pr-2">
             <span className="text-zinc-600 select-none mr-1">$</span>
             <span className="text-purple-400 font-bold">npx</span>
@@ -102,130 +170,100 @@ export default function Home() {
               handleCopy();
             }}
             className={`transition-all duration-200 p-1.5 rounded bg-zinc-950 border border-border-custom text-secondary-text hover:text-primary-text cursor-pointer shrink-0 ${
-              copied ? "border-emerald-500/40 text-emerald-400" : "hover:border-zinc-700"
+              copied
+                ? "border-emerald-500/40 text-emerald-400"
+                : "hover:border-zinc-700"
             }`}
             title="Copy Command"
+            aria-label="Copy command to clipboard"
           >
-            {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+            {copied ? (
+              <Check size={14} className="text-emerald-400" />
+            ) : (
+              <Copy size={14} />
+            )}
           </button>
         </div>
 
+        {/* Copy success toast */}
+        {showToast && (
+          <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-toast-in">
+            <div className="flex items-center gap-2 bg-emerald-950/90 border border-emerald-800/50 text-emerald-300 text-xs font-mono px-4 py-2.5 rounded-lg shadow-lg backdrop-blur-sm">
+              <Check size={14} />
+              <span>Copied to clipboard</span>
+            </div>
+          </div>
+        )}
+
         {/* Interactive Terminal Demo */}
-        <div className="w-full flex justify-center mt-4">
+        <div className="w-full flex justify-center">
           <InteractiveTerminal />
         </div>
       </section>
 
-      {/* Core foundations logo list */}
-      <TrustedTech />
-
-      {/* Why NovaStack (Comparison) */}
-      <section id="comparison" className="py-20 px-4 max-w-6xl mx-auto w-full border-b border-border-custom/50">
-        <div className="text-left mb-12">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
-            Comparison
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-primary-text">
-            Why NovaStack?
-          </h2>
-        </div>
-        <Comparison />
-      </section>
-
-      {/* Golden Stack visualization */}
-      <section id="golden-stack" className="py-20 px-4 max-w-6xl mx-auto w-full border-b border-border-custom/50">
-        <div className="text-left mb-12">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
-            The Stack Blueprint
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-primary-text">
-            The Golden Stack
-          </h2>
-        </div>
-        <GoldenStack />
-      </section>
-
       {/* Features Grid */}
-      <section id="features" className="py-20 px-4 max-w-6xl mx-auto w-full border-b border-border-custom/50">
+      <FadeInSection
+        id="features"
+        className="py-14 px-4 max-w-6xl mx-auto w-full border-b border-border-custom/50"
+      >
         <div className="text-left mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 block mb-3">
               Core Features
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-primary-text">
               Engineered for DX
             </h2>
           </div>
-          {/* Feature Badges */}
-          <div className="flex flex-wrap gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-zinc-900/60 text-zinc-300 border border-border-custom hover:border-zinc-700 transition-colors duration-300">
-              <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
-              Open Source
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-zinc-900/60 text-zinc-300 border border-border-custom hover:border-zinc-700 transition-colors duration-300">
-              <span className="w-1 h-1 rounded-full bg-red-500 animate-pulse" />
-              npm Package
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-zinc-900/60 text-zinc-300 border border-border-custom hover:border-zinc-700 transition-colors duration-300">
-              <span className="w-1 h-1 rounded-full bg-blue-500 animate-pulse" />
-              TypeScript
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-zinc-900/60 text-zinc-300 border border-border-custom hover:border-zinc-700 transition-colors duration-300">
-              <span className="w-1 h-1 rounded-full bg-amber-500 animate-pulse" />
-              MIT License
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-zinc-900/60 text-zinc-300 border border-border-custom hover:border-zinc-700 transition-colors duration-300">
-              <span className="w-1 h-1 rounded-full bg-indigo-500 animate-pulse" />
-              Developer First
-            </span>
+          {/* Trust badges */}
+          <div className="flex flex-wrap gap-2" role="list" aria-label="Project attributes">
+            {[
+              { label: "Open Source", color: "bg-emerald-500" },
+              { label: "TypeScript Native", color: "bg-blue-500" },
+              { label: "MIT License", color: "bg-amber-500" },
+              { label: "Developer First", color: "bg-indigo-500" },
+              { label: "Zero Vendor Lock-in", color: "bg-rose-500" },
+            ].map((badge) => (
+              <span
+                key={badge.label}
+                role="listitem"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-zinc-900/60 text-zinc-300 border border-border-custom hover:border-zinc-700 transition-colors duration-300"
+              >
+                <span
+                  className={`w-1.5 h-1.5 rounded-full ${badge.color}`}
+                  aria-hidden="true"
+                />
+                {badge.label}
+              </span>
+            ))}
           </div>
         </div>
         <Features />
-      </section>
+      </FadeInSection>
 
       {/* Installation Section */}
-      <section id="installation" className="py-20 px-4 max-w-6xl mx-auto w-full border-b border-border-custom/50">
+      <FadeInSection
+        id="installation"
+        className="py-14 px-4 max-w-6xl mx-auto w-full border-b border-border-custom/50"
+      >
         <div className="text-left mb-12">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 block mb-3">
             Installation
           </span>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-primary-text">
-            Install NovaStack with one command.
+            Get started in seconds.
           </h2>
         </div>
         <Installation />
-      </section>
-
-      {/* Commands Explorer */}
-      <section id="commands" className="py-20 px-4 max-w-6xl mx-auto w-full border-b border-border-custom/50">
-        <div className="text-left mb-12">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
-            CLI reference
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-primary-text">
-            Command Directory
-          </h2>
-        </div>
-        <CommandExplorer />
-      </section>
-
-      {/* System Architecture */}
-      <section id="architecture" className="py-20 px-4 max-w-6xl mx-auto w-full border-b border-border-custom/50">
-        <div className="text-left mb-12">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
-            System Assembly
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-primary-text">
-            Internal Pipeline Architecture
-          </h2>
-        </div>
-        <ArchitectureDiagram />
-      </section>
+      </FadeInSection>
 
       {/* Roadmap timeline */}
-      <section id="roadmap" className="py-20 px-4 max-w-6xl mx-auto w-full border-b border-border-custom/50">
+      <FadeInSection
+        id="roadmap"
+        className="py-14 px-4 max-w-6xl mx-auto w-full border-b border-border-custom/50"
+      >
         <div className="text-left mb-12">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 block mb-3">
             Timeline
           </span>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-primary-text">
@@ -233,33 +271,35 @@ export default function Home() {
           </h2>
         </div>
         <Roadmap />
-      </section>
+      </FadeInSection>
 
-      {/* FAQ */}
-      <section id="faq" className="py-20 px-4 max-w-6xl mx-auto w-full border-b border-border-custom/50">
-        <div className="text-left mb-12">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
-            Frequently Asked Questions
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-primary-text">
-            Questions & Answers
-          </h2>
+      {/* Final CTA Section */}
+      <FadeInSection
+        id="cta"
+        className="py-16 px-4 max-w-6xl mx-auto w-full text-center flex flex-col items-center"
+      >
+        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-primary-text mb-4 font-sans">
+          Ready to accelerate your workflow?
+        </h2>
+        <p className="text-sm sm:text-base text-secondary-text max-w-lg mb-10 leading-relaxed">
+          Get started with NovaStack today. Scaffold a complete production-ready application with a single CLI command.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <button
+            onClick={() => scrollToSection("installation")}
+            className="h-11 px-7 rounded-lg bg-white text-black font-semibold text-sm flex items-center justify-center gap-2.5 hover:bg-zinc-200 transition-all duration-200 cursor-pointer shadow-lg hover:shadow-white/10"
+          >
+            Start scaffolding
+            <ArrowRight size={15} />
+          </button>
+          <a
+            href="/docs"
+            className="h-11 px-7 rounded-lg border border-border-custom bg-surface text-primary-text font-semibold text-sm flex items-center justify-center gap-2.5 hover:border-zinc-500 hover:bg-zinc-900 transition-all duration-200"
+          >
+            Read the docs
+          </a>
         </div>
-        <FAQ />
-      </section>
-
-      {/* Open Source / Community */}
-      <section id="open-source" className="py-20 px-4 max-w-6xl mx-auto w-full mb-12">
-        <div className="text-left mb-12">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
-            Open Source
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-primary-text">
-            Built in Public
-          </h2>
-        </div>
-        <OpenSource />
-      </section>
+      </FadeInSection>
 
       {/* Footer */}
       <Footer />

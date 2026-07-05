@@ -4,7 +4,7 @@ import { CheckCircle2, CircleDot, Terminal, Settings, ShieldAlert, Cpu, Sparkles
 
 interface Feature {
   title: string;
-  description: string;
+  highlights: string[];
   status: "current" | "upcoming";
   icon: React.ComponentType<{ className?: string }>;
 }
@@ -12,55 +12,100 @@ interface Feature {
 const FEATURES: Feature[] = [
   {
     title: "Project Scaffolding",
-    description: "Initialize full-stack structure with standard Next.js layouts, App Router endpoints, client utils, and models instantly.",
+    highlights: [
+      "App Router with layouts",
+      "TypeScript strict mode",
+      "API route handlers",
+      "Ready in seconds",
+    ],
     status: "current",
     icon: FolderKanban,
   },
   {
     title: "Production Defaults",
-    description: "Comes with standard setups for error handling, global loading views, environment variable templates, and strict TypeScript configurations.",
+    highlights: [
+      "Error boundaries pre-configured",
+      "Loading states included",
+      "Environment templates",
+      "Strict TypeScript config",
+    ],
     status: "current",
     icon: Settings,
   },
   {
     title: "Docker Support",
-    description: "Includes a production-ready multi-stage Dockerfile and an optimized compose file for development Postgres instances.",
+    highlights: [
+      "Multi-stage Dockerfile",
+      "Optimized compose setup",
+      "Dev Postgres container",
+      "Zero manual config",
+    ],
     status: "current",
     icon: Cpu,
   },
   {
     title: "Better Auth Integration",
-    description: "Includes predefined Prisma schemas and Next.js handlers for email and password authentication out of the box.",
+    highlights: [
+      "Email & password auth",
+      "Prisma schema included",
+      "Session management",
+      "Custom auth hooks",
+    ],
     status: "current",
     icon: ShieldAlert,
   },
   {
     title: "Prisma Integration",
-    description: "Database connection pools, seeding setups, schema structures, and client singletons prepared for high scale.",
+    highlights: [
+      "Client singleton pattern",
+      "Schema definitions",
+      "Connection pooling",
+      "Migration ready",
+    ],
     status: "current",
     icon: CircleDot,
   },
   {
     title: "Strict TypeScript",
-    description: "Types defined for database clients, scaffolding pipelines, env validations, and authentication helpers.",
+    highlights: [
+      "End-to-end type safety",
+      "Database client types",
+      "Auth helper types",
+      "Environment validation",
+    ],
     status: "current",
     icon: Terminal,
   },
   {
     title: "Doctor Diagnosis CLI",
-    description: "Analyze environment variable setup, Docker container status, schema validity, and linting standards directly in the terminal.",
+    highlights: [
+      "Environment variable checks",
+      "Docker container auditing",
+      "Schema validation",
+      "Lint standard analysis",
+    ],
     status: "upcoming",
     icon: Sparkles,
   },
   {
     title: "Module Generators",
-    description: "Execute short commands to scaffold database tables, API routes, layout pages, and UI modules inline with project conventions.",
+    highlights: [
+      "Scaffold database models",
+      "Generate API routes",
+      "Create UI components",
+      "Convention-aligned output",
+    ],
     status: "upcoming",
     icon: Cpu,
   },
   {
-    title: "NovaStack Plugin System",
-    description: "Build, distribute, and install custom CLI rules and template overrides to share project standards across teams.",
+    title: "Plugin System",
+    highlights: [
+      "Custom CLI rules",
+      "Template overrides",
+      "Shareable presets",
+      "Team standardization",
+    ],
     status: "upcoming",
     icon: Settings,
   },
@@ -69,26 +114,33 @@ const FEATURES: Feature[] = [
 export default function Features() {
   return (
     <div className="w-full relative">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {FEATURES.map((feat, idx) => {
           const isCurrent = feat.status === "current";
           const Icon = feat.icon;
           return (
             <div
               key={idx}
-              className={`border rounded-lg p-6 text-left flex flex-col justify-between min-h-[180px] transition-all ${
+              className={`border rounded-xl p-6 text-left flex flex-col justify-between min-h-[200px] card-hover ${
                 isCurrent
                   ? "bg-surface border-border-custom hover:border-zinc-500"
-                  : "bg-black/10 border-border-custom/40 opacity-75"
+                  : "bg-black/10 border-border-custom/40 opacity-70"
               }`}
+              role="article"
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className={`p-2 rounded bg-black/40 border ${isCurrent ? "border-border-custom text-white" : "border-border-custom/50 text-zinc-600"}`}>
+                <div className="flex items-center justify-between mb-5">
+                  <div
+                    className={`p-2 rounded-lg bg-black/40 border ${
+                      isCurrent
+                        ? "border-border-custom text-white"
+                        : "border-border-custom/50 text-zinc-600"
+                    }`}
+                  >
                     <Icon className="w-4 h-4" />
                   </div>
                   <span
-                    className={`text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 rounded ${
+                    className={`text-[9px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
                       isCurrent
                         ? "bg-emerald-950/60 text-emerald-400 border border-emerald-900/50"
                         : "bg-zinc-900/60 text-zinc-500 border border-zinc-800/50"
@@ -97,12 +149,25 @@ export default function Features() {
                     {feat.status}
                   </span>
                 </div>
-                <h4 className="text-sm sm:text-base font-bold text-primary-text mb-2">
+                <h4 className="text-sm sm:text-base font-bold text-primary-text mb-3">
                   {feat.title}
                 </h4>
-                <p className="text-xs sm:text-sm text-secondary-text leading-relaxed">
-                  {feat.description}
-                </p>
+                <ul className="space-y-1.5">
+                  {feat.highlights.map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center gap-2 text-xs sm:text-sm text-secondary-text"
+                    >
+                      <span
+                        className={`w-1 h-1 rounded-full shrink-0 ${
+                          isCurrent ? "bg-zinc-500" : "bg-zinc-700"
+                        }`}
+                        aria-hidden="true"
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           );

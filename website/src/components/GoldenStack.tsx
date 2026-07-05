@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowDown, Layers, Terminal, ShieldCheck, Database, Compass, Container } from "lucide-react";
+import { ArrowDown, ShieldCheck } from "lucide-react";
 
 interface StackItem {
   id: string;
@@ -17,49 +17,56 @@ const ITEMS: StackItem[] = [
     name: "Next.js 15",
     description: "Framework Layer",
     badge: "Framework",
-    details: "Configured with App Router, server actions, optimized layouts, and standard error boundaries. Zero runtime configuration needed.",
+    details:
+      "Configured with App Router, server actions, optimized layouts, and standard error boundaries. Zero runtime configuration needed.",
   },
   {
     id: "ts",
     name: "TypeScript",
     description: "Typing Layer",
     badge: "Language",
-    details: "Strict compiler settings pre-configured. Direct integration with Prisma types, Better Auth schemas, and API handlers.",
+    details:
+      "Strict compiler settings pre-configured. Direct integration with Prisma types, Better Auth schemas, and API handlers.",
   },
   {
     id: "tailwind",
     name: "Tailwind CSS v4",
     description: "Styling Layer",
     badge: "CSS",
-    details: "Pure styling without CSS configurations. Leverages native PostCSS bundling and modern design token variables.",
+    details:
+      "Pure styling without CSS configurations. Leverages native PostCSS bundling and modern design token variables.",
   },
   {
     id: "prisma",
     name: "Prisma Client",
     description: "Database ORM",
     badge: "ORM",
-    details: "Initialized client singleton with query logging. Prevents connection leaks in development hot reloads.",
+    details:
+      "Initialized client singleton with query logging. Prevents connection leaks in development hot reloads.",
   },
   {
     id: "postgres",
     name: "PostgreSQL",
     description: "Database Engine",
     badge: "Database",
-    details: "Battle-tested SQL container ready out of the box with schema migrations and development seeding options.",
+    details:
+      "Battle-tested SQL container ready out of the box with schema migrations and development seeding options.",
   },
   {
     id: "auth",
     name: "Better Auth",
     description: "Identity / Security",
     badge: "Authentication",
-    details: "Self-hosted sessions, password hashing, and user tables built directly into your database schema. Custom hooks included.",
+    details:
+      "Self-hosted sessions, password hashing, and user tables built directly into your database schema. Custom hooks included.",
   },
   {
     id: "docker",
     name: "Docker Setup",
     description: "Containerization",
     badge: "Deployment",
-    details: "Multi-stage production build script separating build assets from runtime. Runs on any container engine or host platform.",
+    details:
+      "Multi-stage production build script separating build assets from runtime. Runs on any container engine or host platform.",
   },
 ];
 
@@ -71,7 +78,11 @@ export default function GoldenStack() {
   return (
     <div className="w-full flex flex-col lg:flex-row gap-8 lg:gap-12 items-stretch">
       {/* Left side - Visual Ladder */}
-      <div className="flex-1 flex flex-col justify-between max-w-lg mx-auto lg:mx-0 w-full space-y-4">
+      <div
+        className="flex-1 flex flex-col justify-between max-w-lg mx-auto lg:mx-0 w-full space-y-3"
+        role="tablist"
+        aria-label="Golden Stack layers"
+      >
         {ITEMS.map((item, idx) => {
           const isActive = item.id === activeItem;
           return (
@@ -79,28 +90,42 @@ export default function GoldenStack() {
               <button
                 onMouseEnter={() => setActiveItem(item.id)}
                 onClick={() => setActiveItem(item.id)}
-                className={`w-full py-4 px-6 rounded border text-left transition-all relative cursor-pointer ${
+                role="tab"
+                aria-selected={isActive}
+                className={`w-full py-4 px-6 rounded-xl border text-left transition-all duration-200 relative cursor-pointer ${
                   isActive
-                    ? "bg-white text-black border-white shadow-lg"
+                    ? "bg-white text-black border-white shadow-lg shadow-white/5"
                     : "bg-surface text-secondary-text border-border-custom hover:border-zinc-500 hover:text-primary-text"
                 }`}
               >
                 <div className="flex justify-between items-center">
                   <div>
-                    <span className={`text-[10px] font-mono uppercase tracking-wider ${isActive ? "text-zinc-600" : "text-zinc-500"}`}>
+                    <span
+                      className={`text-[10px] font-mono uppercase tracking-wider ${
+                        isActive ? "text-zinc-600" : "text-zinc-500"
+                      }`}
+                    >
                       {item.description}
                     </span>
-                    <h4 className="text-sm sm:text-base font-bold mt-0.5">{item.name}</h4>
+                    <h4 className="text-sm sm:text-base font-bold mt-0.5">
+                      {item.name}
+                    </h4>
                   </div>
-                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${isActive ? "border-zinc-400 bg-zinc-100" : "border-border-custom bg-black/40"}`}>
+                  <span
+                    className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full border ${
+                      isActive
+                        ? "border-zinc-400 bg-zinc-100"
+                        : "border-border-custom bg-black/40"
+                    }`}
+                  >
                     {item.badge}
                   </span>
                 </div>
               </button>
 
               {idx < ITEMS.length - 1 && (
-                <div className="my-2 text-zinc-700 flex items-center justify-center h-4">
-                  <ArrowDown size={14} className="animate-pulse" />
+                <div className="my-1.5 text-zinc-700 flex items-center justify-center h-4">
+                  <ArrowDown size={14} className="connector-pulse" />
                 </div>
               )}
             </div>
@@ -109,10 +134,13 @@ export default function GoldenStack() {
       </div>
 
       {/* Right side - Technical Spec */}
-      <div className="flex-1 border border-border-custom bg-black/40 rounded-lg p-6 sm:p-8 flex flex-col justify-between text-left">
+      <div
+        className="flex-1 border border-border-custom bg-black/40 rounded-xl p-6 sm:p-8 flex flex-col justify-between text-left"
+        role="tabpanel"
+      >
         <div>
-          <div className="flex items-center gap-2 mb-6">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 border border-border-custom px-2 py-0.5 rounded">
+          <div className="flex items-center gap-2.5 mb-6">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 border border-border-custom px-2.5 py-0.5 rounded-full">
               Blueprint Spec
             </span>
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
@@ -121,9 +149,9 @@ export default function GoldenStack() {
           <h3 className="text-2xl font-bold font-sans text-primary-text mb-2">
             {selected.name}
           </h3>
-          
-          <div className="text-[10px] font-mono text-zinc-400 mb-6 uppercase tracking-wider">
-            Layer Type: {selected.description}
+
+          <div className="text-[10px] font-mono text-zinc-400 mb-6 uppercase tracking-widest">
+            Layer: {selected.description}
           </div>
 
           <p className="text-sm sm:text-base text-secondary-text leading-relaxed">

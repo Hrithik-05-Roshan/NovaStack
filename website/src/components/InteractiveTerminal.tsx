@@ -54,7 +54,9 @@ export default function InteractiveTerminal() {
         const inputString = currentLine.text;
         const typingInterval = setInterval(() => {
           if (charIndex < inputString.length) {
-            setCurrentInputText((prev) => prev + inputString.charAt(charIndex));
+            setCurrentInputText(
+              (prev) => prev + inputString.charAt(charIndex)
+            );
             charIndex++;
           } else {
             clearInterval(typingInterval);
@@ -63,7 +65,7 @@ export default function InteractiveTerminal() {
             setCurrentInputText("");
             setSequenceIndex((prev) => prev + 1);
           }
-        }, 60);
+        }, 50);
       } else {
         setDisplayedLines((prev) => [...prev, currentLine.text]);
         setSequenceIndex((prev) => prev + 1);
@@ -74,13 +76,17 @@ export default function InteractiveTerminal() {
   }, [sequenceIndex, isRunning]);
 
   return (
-    <div className="w-full max-w-3xl bg-surface border border-border-custom rounded-lg overflow-hidden terminal-shadow font-mono text-xs sm:text-sm text-left h-[420px] flex flex-col relative">
+    <div
+      className="w-full max-w-3xl bg-surface border border-border-custom rounded-xl overflow-hidden terminal-shadow font-mono text-xs sm:text-sm text-left h-[420px] flex flex-col relative"
+      role="region"
+      aria-label="Interactive terminal demo"
+    >
       {/* Terminal Title Bar */}
       <div className="h-10 bg-black/40 border-b border-border-custom px-4 flex items-center justify-between select-none">
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-zinc-800 border border-zinc-700" />
-          <div className="w-3 h-3 rounded-full bg-zinc-800 border border-zinc-700" />
-          <div className="w-3 h-3 rounded-full bg-zinc-800 border border-zinc-700" />
+          <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/30" />
+          <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/30" />
+          <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/30" />
         </div>
         <div className="text-[10px] text-secondary-text flex items-center gap-1.5 font-sans">
           <Terminal size={11} className="text-secondary-text" />
@@ -88,10 +94,14 @@ export default function InteractiveTerminal() {
         </div>
         <button
           onClick={resetTerminal}
-          className="text-secondary-text hover:text-primary-text transition-colors p-1 rounded hover:bg-zinc-800"
+          className="text-secondary-text hover:text-primary-text transition-colors p-1.5 rounded-md hover:bg-zinc-800"
           title="Restart Demo"
+          aria-label="Restart terminal demo"
         >
-          <RefreshCw size={13} className={isRunning ? "animate-spin" : ""} />
+          <RefreshCw
+            size={13}
+            className={isRunning ? "animate-spin" : ""}
+          />
         </button>
       </div>
 
@@ -115,19 +125,24 @@ export default function InteractiveTerminal() {
             }
 
             return (
-              <div key={idx} className={className}>
+              <div
+                key={idx}
+                className={`${className} animate-fade-in-up`}
+                style={{ animationDelay: `${idx * 20}ms` }}
+              >
                 {line}
               </div>
             );
           })}
 
           {/* Current typing line */}
-          {isRunning && TERMINAL_SEQUENCE[sequenceIndex]?.type === "input" && (
-            <div className="text-primary-text font-bold flex items-center">
-              <span>$ {currentInputText}</span>
-              <span className="w-1.5 h-4 bg-white ml-0.5 animate-pulse" />
-            </div>
-          )}
+          {isRunning &&
+            TERMINAL_SEQUENCE[sequenceIndex]?.type === "input" && (
+              <div className="text-primary-text font-bold flex items-center">
+                <span>$ {currentInputText}</span>
+                <span className="w-1.5 h-4 bg-white ml-0.5 animate-pulse rounded-sm" />
+              </div>
+            )}
         </div>
       </div>
     </div>
