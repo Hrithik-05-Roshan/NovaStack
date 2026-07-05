@@ -89,7 +89,7 @@ npx prisma db push
 npm run dev
 ```
 
-Your app is now live at **[http://localhost:3000](https://nova-stack-seven.vercel.app/)**.
+Your app is now live at **[https://nova-stack-seven.vercel.app/](https://nova-stack-seven.vercel.app/)**.
 
 ---
 
