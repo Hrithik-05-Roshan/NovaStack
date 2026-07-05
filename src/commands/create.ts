@@ -92,14 +92,14 @@ export const createCommand = new Command('create')
     logger.newline();
     console.log(`  ${fmt.bold('Next steps:')}`);
     let stepNum = 1;
-    console.log(`    ${fmt.cyan(stepNum++)}.  cd ${fmt.bold(config.name)}`);
+    console.log(`    ${fmt.cyan(String(stepNum++))}.  cd ${fmt.bold(config.name)}`);
     if (!config.installDeps) {
-      console.log(`    ${fmt.cyan(stepNum++)}.  ${config.packageManager} install`);
+      console.log(`    ${fmt.cyan(String(stepNum++))}.  ${config.packageManager} install`);
     }
-    console.log(`    ${fmt.cyan(stepNum++)}.  cp .env.example .env.local   ${fmt.dim('# Configure environment variables')}`);
-    console.log(`    ${fmt.cyan(stepNum++)}.  docker compose up -d         ${fmt.dim('# Start PostgreSQL database container')}`);
-    console.log(`    ${fmt.cyan(stepNum++)}.  npx prisma db push           ${fmt.dim('# Sync database schema')}`);
-    console.log(`    ${fmt.cyan(stepNum++)}.  ${config.packageManager} run dev               ${fmt.dim('# Start local development server')}`);
+    console.log(`    ${fmt.cyan(String(stepNum++))}.  cp .env.example .env.local   ${fmt.dim('# Configure environment variables')}`);
+    console.log(`    ${fmt.cyan(String(stepNum++))}.  docker compose up -d         ${fmt.dim('# Start PostgreSQL database container')}`);
+    console.log(`    ${fmt.cyan(String(stepNum++))}.  npx prisma db push           ${fmt.dim('# Sync database schema')}`);
+    console.log(`    ${fmt.cyan(String(stepNum++))}.  ${config.packageManager} run dev               ${fmt.dim('# Start local development server')}`);
     logger.newline();
 
     // Stack summary
