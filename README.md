@@ -1,112 +1,234 @@
-# NovaStack
+# 🚀 NovaStack
 
-[![npm version](https://img.shields.io/npm/v/@novastack/cli.svg?style=flat-square&color=blue)](https://www.npmjs.com/package/@novastack/cli)
-[![license](https://img.shields.io/npm/l/@novastack/cli.svg?style=flat-square&color=emerald)](./LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/Hrithik-05-Roshan/NovaStack?style=flat-square&color=indigo)](https://github.com/Hrithik-05-Roshan/NovaStack/issues)
-[![GitHub stars](https://img.shields.io/github/stars/Hrithik-05-Roshan/NovaStack?style=flat-square&color=yellow)](https://github.com/Hrithik-05-Roshan/NovaStack/stargazers)
+<p align="center">
+  <img src="./website/public/android-chrome-192x192.png" width="140" alt="NovaStack Logo"/>
+</p>
 
-**NovaStack** is an opinionated, zero-config full-stack application generator for building production-ready apps in minutes. It eliminates bootstrap fatigue by scaffolding a highly optimized, type-safe stack based on industry best practices.
+<p align="center">
+  <b>Opinionated. Zero Configuration. Production Ready.</b><br>
+  Scaffold a complete full-stack application in minutes with one command.
+</p>
 
-No choices to make. No configuration boilerplate. Just run one command and start writing your product code.
+<p align="center">
 
----
+![npm](https://img.shields.io/npm/v/@novastack/cli?style=for-the-badge)
+![license](https://img.shields.io/github/license/Hrithik-05-Roshan/NovaStack?style=for-the-badge)
+![stars](https://img.shields.io/github/stars/Hrithik-05-Roshan/NovaStack?style=for-the-badge)
+![issues](https://img.shields.io/github/issues/Hrithik-05-Roshan/NovaStack?style=for-the-badge)
 
-## The Golden Stack
-
-NovaStack generates applications utilizing a pre-configured, high-performance tech stack:
-
-*   **Framework:** Next.js 15 (App Router with Server Components)
-*   **Language:** TypeScript (Strict mode enabled)
-*   **Styling:** Tailwind CSS v4 (Import-first, native CSS theme variables)
-*   **Database:** PostgreSQL (Development ready via Docker Compose)
-*   **ORM:** Prisma (Fully typed clients, schema migrations, and seeding)
-*   **Auth:** Better Auth (Secure, session-based credentials and OAuth)
-*   **UI Foundation:** shadcn/ui (Accessible Radix UI primitives)
-*   **Linting:** ESLint + Prettier (Auto-formatting and code style enforcement)
-*   **Containerization:** Docker (Multi-stage build files optimized for Next.js standalone)
-
-For a detailed breakdown of why these components were selected and how they interface, see [SUPPORTED_STACK.md](./SUPPORTED_STACK.md).
+</p>
 
 ---
 
-## Features
+## ✨ What is NovaStack?
 
-*   🚀 **Instant Scaffolding:** Generate a complete repo structure in less than 3 seconds.
-*   🔒 **Pre-configured Auth:** Better Auth setup with secure session-based cookie handling.
-*   🐳 **Docker-compose Out of the Box:** Start a fully configured PostgreSQL instance with a single command.
-*   🎨 **Tailwind CSS v4 + shadcn/ui:** Modern CSS variables and design tokens already integrated.
-*   📦 **Multi-Stage Dockerfile:** Optimized production builds utilizing Next.js standalone server mode.
-*   🛠️ **Built-in Quality Gates:** Pre-configured ESLint, Prettier, and TypeScript compiler rules.
+NovaStack is an **opinionated full-stack application generator** that eliminates setup fatigue.
+
+Instead of spending hours configuring authentication, databases, Docker, TypeScript, Tailwind, Prisma, and project structure...
+
+Run **one command**.
+
+NovaStack creates a production-ready codebase following modern best practices so you can focus on building your product—not your boilerplate.
 
 ---
 
-## Quick Start
+## 🌐 Website
 
-You can generate a new project instantly using `npx`:
+**Live:** https://nova-stack-seven.vercel.app/
+
+---
+
+# ⚡ Quick Start
+
+No installation required.
 
 ```bash
-npx @novastack/cli create my-new-app
+npx @novastack/cli create my-app
 ```
 
-Or install it globally:
+Or install globally.
 
 ```bash
 npm install -g @novastack/cli
-novastack create my-new-app
+
+novastack create my-app
 ```
 
-### Scaffolding Workflow
-
-1.  **Welcome Banner:** Displays branding and versioning.
-2.  **Project Name Prompt:** Asks for project folder name.
-3.  **Confirm Stack:** Displays the Golden Stack components and asks for confirmation.
-4.  **Automatic Scaffolding:** Writes files atomically.
-5.  **Auto-Installation:** Installs dependencies using your detected package manager (`npm`, `pnpm`, `yarn`, or `bun`).
-6.  **Git Initialization:** Automatically creates a git repository and commits the initial scaffold.
-
-For extensive setup and requirements details, refer to [INSTALLATION.md](./INSTALLATION.md).
+That's it.
 
 ---
 
-## Next Steps inside your Generated Project
+# 🏆 The Golden Stack
 
-Once the CLI finishes creating your project, step inside the directory and boot up the development server:
+Every generated project comes preconfigured with an industry-standard stack.
+
+| Technology           | Purpose                        |
+| -------------------- | ------------------------------ |
+| ⚡ Next.js 15         | App Router + Server Components |
+| 🔷 TypeScript        | Strict Mode                    |
+| 🎨 Tailwind CSS v4   | Modern Styling                 |
+| 🧩 shadcn/ui         | Beautiful UI Components        |
+| 🔐 Better Auth       | Authentication                 |
+| 🗄 PostgreSQL        | Database                       |
+| 🔥 Prisma ORM        | Type-safe Database Access      |
+| 🐳 Docker            | Development & Production       |
+| 🛠 ESLint + Prettier | Code Quality                   |
+
+Everything works together out of the box.
+
+---
+
+# 🚀 Features
+
+✅ Zero Configuration
+
+✅ Production Ready
+
+✅ Authentication Included
+
+✅ PostgreSQL + Prisma
+
+✅ Docker Ready
+
+✅ Type Safe
+
+✅ Tailwind CSS v4
+
+✅ shadcn/ui Integrated
+
+✅ Git Initialized Automatically
+
+✅ Auto Dependency Installation
+
+✅ Modern Folder Structure
+
+✅ Best Practices by Default
+
+---
+
+# 📦 What Happens After Running the CLI?
+
+```text
+✔ Welcome Banner
+
+✔ Project Creation
+
+✔ Stack Confirmation
+
+✔ File Generation
+
+✔ Dependency Installation
+
+✔ Git Initialization
+
+✔ Initial Commit
+
+✔ Ready to Code 🚀
+```
+
+No manual setup.
+
+No copy-pasting templates.
+
+No configuration headaches.
+
+---
+
+# 🚀 Run Your New Project
 
 ```bash
-# 1. Step into directory
-cd my-new-app
+# Enter project
 
-# 2. Configure environment variables
+cd my-app
+
+# Configure environment
+
 cp .env.example .env.local
 
-# 3. Start local PostgreSQL container
+# Start PostgreSQL
+
 docker compose up -d
 
-# 4. Sync database schema
+# Push database schema
+
 npx prisma db push
 
-# 5. Start development server
+# Start development server
+
 npm run dev
 ```
 
-Your app is now live at [http://localhost:3000](http://localhost:3000)!
+Open
+
+```
+http://localhost:3000
+```
+
+and start building.
 
 ---
 
-## Documentation Index
+# 📚 Documentation
 
-Explore our documentation pages for deeper insights:
-
-*   [**Installation Guide (INSTALLATION.md)**](./INSTALLATION.md) — Prerequisites, CLI flags, global installations, and environment settings.
-*   [**Supported Stack (SUPPORTED_STACK.md)**](./SUPPORTED_STACK.md) — Technical details of the technologies, setup rationale, and structural layers.
-*   [**Roadmap (ROADMAP.md)**](./ROADMAP.md) — Release calendar, feature status, and long-term milestones.
-*   [**Contributing Guidelines (CONTRIBUTING.md)**](./CONTRIBUTING.md) — Guidelines for code modifications, folder structure notes, and local testing.
-*   [**Security Policy (SECURITY.md)**](./SECURITY.md) — Reporting vulnerabilities, security releases, and patching support.
-*   [**Code of Conduct (CODE_OF_CONDUCT.md)**](./CODE_OF_CONDUCT.md) — Community guidelines and expectation standards.
-*   [**Changelog (CHANGELOG.md)**](./CHANGELOG.md) — Complete release logs and progression details.
+| Guide              | Description                 |
+| ------------------ | --------------------------- |
+| INSTALLATION.md    | Installation & Requirements |
+| SUPPORTED_STACK.md | Complete Tech Stack         |
+| ROADMAP.md         | Upcoming Features           |
+| CONTRIBUTING.md    | Contribution Guide          |
+| SECURITY.md        | Security Policy             |
+| CHANGELOG.md       | Release History             |
+| CODE_OF_CONDUCT.md | Community Guidelines        |
 
 ---
 
-## License
+# 💡 Why NovaStack?
 
-Distributed under the MIT License. See [LICENSE](./LICENSE) for details.
+Most starters give you files.
+
+NovaStack gives you a **production foundation.**
+
+Instead of deciding between dozens of packages, architectures, and configurations, NovaStack ships with carefully selected technologies that work seamlessly together.
+
+Spend your time shipping features instead of configuring tools.
+
+---
+
+# 🛣 Roadmap
+
+* AI Project Generator
+* Multiple Database Providers
+* SaaS Starter Templates
+* Stripe Integration
+* Email Providers
+* Background Jobs
+* CLI Plugins
+* Deployment Presets
+* More Authentication Providers
+* Testing Templates
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
+
+Feel free to open Issues, submit Pull Requests, or suggest new features.
+
+If you like NovaStack, consider giving the repository a ⭐.
+
+---
+
+# 📄 License
+
+Distributed under the **MIT License**.
+
+See the **LICENSE** file for more information.
+
+---
+
+<p align="center">
+
+Built with ❤️ by **Hrithik Burnwal**
+
+</p>
